@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" method="post"></form>
+    <script>
+        function CheckAll(parent) {
+            var ids = document.getElementsByTagName('input');
+            for (var i = 0; i < ids.length; i++) {
+                if (ids[i].name == "ids[]") {
+                    ids[i].checked = parent.checked;
+                }
+            }
+
+        }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <form action="#">
+        <p><label><input type="checkbox" id="checkAll"/> Check all</label></p>
+
+        <fieldset>
+            <legend ondrop="">Loads of checkboxes</legend>
+            <p><label><input type="checkbox" /> Option 1</label></p>
+            <p><label><input type="checkbox" /> Option 2</label></p>
+            <p><label><input type="checkbox" /> Option 3</label></p>
+            <p><label><input type="checkbox" /> Option 4</label></p>
+        </fieldset>
+    </form>
+</body>
+
+</html>

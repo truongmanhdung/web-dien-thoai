@@ -1,0 +1,72 @@
+.widget-chart-container {
+    display: flex;
+    justify-content: space-around;
+    height: 450px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    width: 100%;
+    /* padding: 0 280px; */
+}
+
+.widget-chart-container table,
+.card-body.table-responsive table {
+    border: 1px solid rgb(212, 212, 212);
+}
+
+.widget-chart-container tr,
+.widget-chart-container td {
+    text-align: center;
+    padding: 10px 32px;
+}
+
+.widget-chart-container th {
+    text-align: center;
+    padding: 10px 10px;
+}
+
+.widget-chart-container td:nth-child(1) {
+    font-weight: bold;
+}
+
+.widget-chart-container img {
+    width: 100px;
+    padding: 1px;
+}
+
+#Suabtn {
+    background: #1ac5bd;
+    cursor: pointer;
+    padding: 5px;
+    color: #fff;
+    border: none;
+    border-radius: .2rem;
+}
+
+#Xoabtn {
+    cursor: pointer;
+    background: #c0295b;
+    padding: 5px;
+    color: #fff;
+    border: none;
+    border-radius: .2rem;
+}
+
+#Suabtn:hover {
+    background: #2938c0;
+}
+
+#Xoabtn:hover {
+    background: #c029ac;
+}
+
+.card-body.table-responsive {
+    height: 248px;
+    display: flex;
+    justify-content: center;
+}
+
+.card-body.table-responsive td,
+.card-body.table-responsive th {
+    text-align: center !important;
+    padding: 5px !important;
+}
