@@ -445,7 +445,13 @@ footer ul li a{
     line-height: 50px;
     display: inline;
 }
-
+.view-title a{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
 /* css chậm */
 html{
     scroll-behavior: smooth;
@@ -503,3 +509,4 @@ header .top-head .icon{
     
 }
 }
+

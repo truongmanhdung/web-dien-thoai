@@ -80,7 +80,7 @@ require_once('../admin/SanPhamDB.php');
                           <tr>
                           <td>' . $i++ . '</td>
                           <td><input name="masp" value="'.$row['masp'].'"/></td>
-                          <td><img class="imgProduct" style = "width: 80px;"src="'.$row['NCC'].'"></img></td>
+                          <td><img class="imgProduct" style = "width: 80px;"src="../Cpanel/images/product/'.$row['NCC'].'"></img></td>
                           <td><input name="tensp" value="'.$row['tensp'].'"/></td>
                           <td><input name="sl" class="amount" value="'.(int)$amount.'" min="1" max="999" type="number" /></td>
                           <td><input name="dongia" class="productCash" value="' . ($row['DonGia']) . '"/>VND</td>

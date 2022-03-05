@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    session_start();
-    require_once('../admin/SanPhamDB.php');
+session_start();
+require_once '../admin/SanPhamDB.php';
 ?>
 
     <head>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="page-title"><span>Sản phẩm</span></div>
                     <div class="be-right-navbar">
-                        <?php include('./in_/menu.php'); ?>
+                        <?php include './in_/menu.php'; ?>
                     </div>
                 </div>
             </nav>
@@ -40,7 +40,7 @@
                     <div class="left-sidebar-spacer">
                         <div class="left-sidebar-scroll">
                             <div class="left-sidebar-content">
-                                <?php include('./in_/sidebar.php');?>
+                                <?php include './in_/sidebar.php'; ?>
                             </div>
                         </div>
                     </div>
@@ -162,12 +162,26 @@
                                         background: #70eeb3;
                                     }
                                 </style>
-                                <form action="" method="post">
+                                <form action="" method="post" enctype="multipart/form-data">
                                     <input type="text" name="maSP" id="maSP" style="display:none">
                                     <input type="text" name="tenSP" id="tenSP" placeholder="Tên sản phẩm" required>
                                     <input type="text" name="DVT" id="DVT" placeholder="Giá gốc" required>
                                     <input type="text" name="donGia" id="donGia" placeholder="Giá KM" required>
-                                    <input type="text" name="ncc" id="ncc" placeholder="Ảnh" required>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">Thêm ảnh</label>
+                                        <label for="imgInp" class="ms-2">
+                                            <img class="" width="100px" src="https://cdn.pixabay.com/photo/2012/04/13/00/21/plus-31216_960_720.png" alt="" id="blah">
+                                        </label>
+                                        <input type="file" name="image_product" id="imgInp" hidden>
+                                    </div>
+                                    <script>
+                                    imgInp.onchange = evt => {
+                                        const [file] = imgInp.files
+                                        if (file) {
+                                        blah.src = URL.createObjectURL(file)
+                                        }
+                                    }
+                                    </script>
                                     <textarea name="chitietsp" id="chitietsp" rows="5" cols="42"></textarea>
                                     <select name="loai" id="loai">
                                         <option value="Chính hãng">Chính Hãng</option>
@@ -181,36 +195,66 @@
                                         <button type="submit" name="updatesp">Update SP</button>
                                     </div>
                                     <?php
-                                        if (isset($_POST['themsp'])) {
-                                            $tenSP = $_POST['tenSP'];
-                                            $DVT = $_POST['DVT'];
-                                            $donGia = $_POST['donGia'];
-                                            $ncc = $_POST['ncc'];
-                                            $loai = $_POST['loai'];
-                                            $chitietsp = $_POST['chitietsp'];
-                                            $iddm = $_POST['iddm'];
-                                            insert_product($tenSP, $DVT, $donGia, $ncc, $loai, $chitietsp, $iddm);
-                                        };
-                                        if (isset($_POST['btnXoa'])) {
-                                            $maSP = $_POST['btnXoa'];
-                                            del_product($maSP);
-                                        }
-                                        if (isset($_POST['btnSua'])) {
-                                            $maSP = $_POST['btnSua'];
-                                            searchID($maSP);
-                                        }
-                                        if (isset($_POST['updatesp'])) {
-                                            $maSP = $_POST['maSP'];
-                                            $tenSP = $_POST['tenSP'];
-                                            $DVT = $_POST['DVT'];
-                                            $donGia = $_POST['donGia'];
-                                            $ncc = $_POST['ncc'];
-                                            $loai = $_POST['loai'];
-                                            $chitietsp = $_POST['chitietsp'];
-                                            $iddm = $_POST['iddm'];
-                                            updateOK($maSP, $tenSP, $DVT, $donGia, $ncc, $loai, $chitietsp, $iddm);
-                                        }
-                                        ?>
+                                    if (isset($_POST['themsp'])) {
+                                        $tenSP = $_POST['tenSP'];
+                                        $DVT = $_POST['DVT'];
+                                        $donGia = $_POST['donGia'];
+                                        $loai = $_POST['loai'];
+                                        $chitietsp = $_POST['chitietsp'];
+                                        $iddm = $_POST['iddm'];
+                                        if($_FILES['image_product']['type'] == "image/jpeg" || $_FILES['image_product']['type'] == "image/png" || $_FILES['image_product']['type'] == "image/gif" || $_FILES['image_product']['type'] == "image/webp"){
+                                            $ncc = $_FILES['image_product']['name'];
+                                            $tmp = $_FILES['image_product']['tmp_name'];
+                                            // Khai báo biến lưu trữ đường dẫn
+                                            move_uploaded_file($tmp, "images/product/" . $ncc);
+
+                                            insert_product(
+                                                $tenSP,
+                                                $DVT,
+                                                $donGia,
+                                                $ncc,
+                                                $loai,
+                                                $chitietsp,
+                                                $iddm
+                                            );
+                                        }   
+                                        
+                                    }
+                                    if (isset($_POST['btnXoa'])) {
+                                        $maSP = $_POST['btnXoa'];
+                                        del_product($maSP);
+                                    }
+                                    if (isset($_POST['btnSua'])) {
+                                        $maSP = $_POST['btnSua'];
+                                        searchID($maSP);
+                                    }
+                                    if (isset($_POST['updatesp'])) {
+                                        $maSP = $_POST['maSP'];
+                                        $tenSP = $_POST['tenSP'];
+                                        $DVT = $_POST['DVT'];
+                                        $donGia = $_POST['donGia'];
+                                        $loai = $_POST['loai'];
+                                        $chitietsp = $_POST['chitietsp'];
+                                        $iddm = $_POST['iddm'];
+                                        if($_FILES['image_product']['type'] == "image/jpeg" || $_FILES['image_product']['type'] == "image/png" || $_FILES['image_product']['type'] == "image/gif" || $_FILES['image_product']['type'] == "image/webp"){
+                                            $ncc = $_FILES['image_product']['name'];
+                                            $tmp = $_FILES['image_product']['tmp_name'];
+                                            // Khai báo biến lưu trữ đường dẫn
+                                            move_uploaded_file($tmp, "images/product/" . $ncc);
+
+                                            updateOK(
+                                                $maSP,
+                                                $tenSP,
+                                                $DVT,
+                                                $donGia,
+                                                $ncc,
+                                                $loai,
+                                                $chitietsp,
+                                                $iddm
+                                            );
+                                        }   
+                                    }
+                                    ?>
                                 </form>
                             </div>
                         </div>
@@ -226,10 +270,11 @@
                                     </div>
                                     <div class="button-toolbar d-none d-md-block">
                                     </div><span class="title"><b>Tất cả sản phẩm</b></span></div>
-                                <?php 
+                                <?php
                                 echo '<div class="widget-chart-container">';
-                                 view_product();
-                                echo '</div>'; ?>
+                                view_product();
+                                echo '</div>';
+                                ?>
                                 <div class="be-spinner">
                                     <svg width="40px" height="40px" viewbox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                                         <circle class="circle" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="30"></circle>

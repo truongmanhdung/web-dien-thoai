@@ -153,9 +153,15 @@
                                         }
 
                                     </style>
-                                    <form action="" method="post">
+                                    <form action="" method="post" enctype="multipart/form-data">
                                         <input type="text" name="id" id="id" style="display:none">
-                                        <input type="text" name="images" id="images" placeholder="Hình ảnh">
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">Thêm ảnh</label>
+                                            <label for="imgInp" class="ms-2">
+                                                <img class="" width="100px" src="https://cdn.pixabay.com/photo/2012/04/13/00/21/plus-31216_960_720.png" alt="" id="blah">
+                                            </label>
+                                            <input type="file" name="image_product" id="imgInp" hidden>
+                                        </div>
                                         <input type="text" name="title" id="title" placeholder="Tiêu đề">
                                         <input type="text" name="detail" id="detail" placeholder="Mô tả">
                                         <input type="text" name="link" id="link" placeholder="Link sản phẩm">
@@ -163,13 +169,27 @@
                                             <button type="submit" name="themslider">Thêm Slider</button>
                                             <button type="submit" name="updateslider">Update Slider</button>
                                         </div>
+                                        <script>
+                                        imgInp.onchange = evt => {
+                                            const [file] = imgInp.files
+                                            if (file) {
+                                            blah.src = URL.createObjectURL(file)
+                                            }
+                                        }
+                                        </script>
                                         <?php
                                         if (isset($_POST['themslider'])) {
-                                            $images = $_POST['images'];
-                                            $title = $_POST['title'];
-                                            $detail = $_POST['detail'];
-                                            $link = $_POST['link'];
-                                            insert_slider($images, $title, $detail, $link);
+                                            if($_FILES['image_product']['type'] == "image/jpeg" || $_FILES['image_product']['type'] == "image/png" || $_FILES['image_product']['type'] == "image/gif" || $_FILES['image_product']['type'] == "image/webp"){
+                                                $images = $_FILES['image_product']['name'];
+                                                $tmp = $_FILES['image_product']['tmp_name'];
+                                                // Khai báo biến lưu trữ đường dẫn
+                                                move_uploaded_file($tmp, "images/product/" . $images);
+                                                $title = $_POST['title'];
+                                                $detail = $_POST['detail'];
+                                                $link = $_POST['link'];
+                                                insert_slider($images, $title, $detail, $link);
+                                            }   
+                                            
                                         };
                                         if (isset($_POST['btnXoaSlider'])) {
                                             $id = $_POST['btnXoaSlider'];
@@ -181,11 +201,16 @@
                                         }
                                         if (isset($_POST['updateslider'])) {
                                             $id = $_POST['id'];
-                                            $images = $_POST['images'];
-                                            $title = $_POST['title'];
-                                            $detail = $_POST['detail'];
-                                            $link = $_POST['link'];
-                                            updateSlider($id, $images, $title, $detail, $link);
+                                            if($_FILES['image_product']['type'] == "image/jpeg" || $_FILES['image_product']['type'] == "image/png" || $_FILES['image_product']['type'] == "image/gif" || $_FILES['image_product']['type'] == "image/webp"){
+                                                $images = $_FILES['image_product']['name'];
+                                                $tmp = $_FILES['image_product']['tmp_name'];
+                                                // Khai báo biến lưu trữ đường dẫn
+                                                move_uploaded_file($tmp, "images/product/" . $images);
+                                                $title = $_POST['title'];
+                                                $detail = $_POST['detail'];
+                                                $link = $_POST['link'];
+                                                updateSlider($id, $images, $title, $detail, $link);
+                                            }   
                                         }
                                         ?>
                                     </form>

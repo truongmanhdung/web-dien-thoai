@@ -118,7 +118,7 @@
             echo '<td>'.$row['tensp'].'</td>';
             echo '<td>'.$row['DVT'].'</td>';
             echo '<td>'.$row['DonGia'].'</td>';
-            echo '<td><img width="100%" src="'.$row['NCC'].'" alt=""></td>';
+            echo '<td><img width="100%" src="../Cpanel/images/product/'.$row['NCC'].'" alt=""></td>';
             echo '<td>'.$row['loai'].'</td>';
             echo '<td>'.$row['viewsp'].'</td>';
             echo '<td>'.$row['tendanhmuc'].'</td>';
@@ -129,7 +129,7 @@
             echo '</td>';
             echo '<td>';
             echo '<form action="" method="post">';
-            echo '<button type="submit" name="btnXoa" id="Xoabtn" value="'.$row['masp'].'">Xoá</button>';
+            echo '<button type="submit" name="btnXoa" onclick="return confirm(\'Bạn có muốn xóa không ?\')" id="Xoabtn" value="'.$row['masp'].'">Xoá</button>';
             echo '</form>';
             echo '</td>';
             echo '</tr>';
@@ -159,7 +159,7 @@
             echo '<td>'.$row['tensp'].'</td>';
             echo '<td>'.$row['DVT'].'</td>';
             echo '<td>'.$row['DonGia'].'</td>';
-            echo '<td><img width="100px" src="'.$row['NCC'].'" alt=""></td>';
+            echo '<td><img width="100px" src="../Cpanel/images/product/'.$row['NCC'].'" alt=""></td>';
             echo '</tr>';
         }
         echo '</table>';
@@ -179,7 +179,7 @@
             echo '<td>'.$row['tensp'].'</td>';
             echo '<td>'.$row['DVT'].'</td>';
             echo '<td>'.$row['DonGia'].'</td>';
-            echo '<td><img width="100px" src="'.$row['NCC'].'" alt=""></td>';
+            echo '<td><img width="100px" src="../Cpanel/images/product/'.$row['NCC'].'" alt=""></td>';
             echo '</tr>';
         }
         echo '</table>';
@@ -222,10 +222,10 @@
         while ($row=mysqli_fetch_array($products)) {
             echo '<div class="hot-item">';
             echo    '<div class="hot-item-inner">';
-            echo        '<a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="'.$row['NCC'].'" alt=""></a>';
+            echo        '<a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="./Cpanel/images/product/'.$row['NCC'].'" alt=""></a>';
             echo        '<span id="hangnew">News</span>';
             echo        '<div class="product-info">';
-            echo            '<h4><a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'">'.$row['tensp'].'</a></h4>';
+            echo            '<h4 class="view-title"><a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'">'.$row['tensp'].'</a></h4>';
             echo            '<span id="gia">'.number_format($row['DonGia']).' đ</span>';
             echo            '<span id="giamgiaroi">'.number_format($row['DVT']).' đ</span>';
             echo        '</div>';
@@ -261,7 +261,7 @@
         $viewok = "SELECT * FROM product WHERE masp='$cmsp' ";
         $luutam = mysqli_query($connect, $viewok);
         while ($row=$luutam->fetch_assoc()) {
-            echo '<img id="imgsp" width="100%" src="'.$row['NCC'].'" alt="">';
+            echo '<img id="imgsp" width="100%" src="./Cpanel/images/product/'.$row['NCC'].'" alt="">';
         }
     }
     function product_sp_title($cmsp){
@@ -324,10 +324,10 @@
         while($row = $result->fetch_assoc()){
             echo '<div class="hot-item cumoi">';
             echo    '<div class="hot-item-inner">';
-            echo        '<a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="'.$row['NCC'].'" alt=""></a>';
+            echo        '<a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="./Cpanel/images/product/'.$row['NCC'].'" alt=""></a>';
             echo        '<span id="hangnew">News</span>';
             echo        '<div class="product-info">';
-            echo            '<h4><a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'">'.$row['tensp'].'</a></h4>';
+            echo            '<h4 class="view-title"><a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'">'.$row['tensp'].'</a></h4>';
             echo            '<span id="gia">'.number_format($row['DonGia']).' đ</span>';
             echo            '<span id="giamgiaroi">'.number_format($row['DVT']).' đ</span>';
             echo        '</div>';
@@ -401,9 +401,11 @@
         $connect = connect_db();
         $sql = 'SELECT * FROM slider ORDER BY id DESC limit 4';
         $result = mysqli_query($connect, $sql);
+        
         while($row = $result->fetch_assoc()){
-            echo '<div style="background-image:url('.$row['images'].'); width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; background-position: left;">
-			<h2>'.$row['title'].'</h2>
+            $image = "./Cpanel/images/product/".$row['images'];
+            echo '<div style="background-image:url('.$image.'); width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; background-position: left;">
+			<h2 style="color: red">'.$row['title'].'</h2>
 			<p>'.$row['detail'].'</p>
             <form action="'.$row['link'].'" method="post">
             <button type="submit">Mua ngay</button>
@@ -436,7 +438,7 @@
             echo '<td>'.$row['title'].'</td>';
             echo '<td>'.$row['detail'].'</td>';
             echo '<td>'.$row['link'].'</td>';
-            echo '<td><img width="100px" src="'.$row['images'].'" alt=""></td>';
+            echo '<td><img width="100px" src="../Cpanel/images/product/'.$row['images'].'" alt=""></td>';
             echo '<td>';
             echo '<form action="" method="post">';
             echo '<button type="submit" name="btnSuaSlider" id="Suabtn" value="'.$row['id'].'">Sửa</button>';
@@ -592,15 +594,15 @@
 
     function splienquan($iddm){
         $connect = connect_db();
-        $sql = "SELECT * FROM product WHERE iddm = '$iddm' order by RAND() limit 6";
+        $sql = "SELECT * FROM product WHERE iddm = '$iddm' order by RAND() limit 4";
         $result = mysqli_query($connect,$sql);
         while($row = $result->fetch_assoc()){
             echo '<div class="hot-item">
                     <div class="hot-item-inner">
-                    <a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="'.$row['NCC'].'" alt=""></a>
+                    <a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="./Cpanel/images/product/'.$row['NCC'].'" alt=""></a>
                         <span id="hangnew">News</span>
                         <div class="product-info">
-                        <h4><a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'">'.$row['tensp'].'</a></h4>
+                        <h4 class="view-title"><a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'">'.$row['tensp'].'</a></h4>
                             <span id="gia">'.number_format($row['DonGia']).' đ</span>
                             <span id="giamgiaroi">'.number_format($row['DVT']).' đ</span>
                         </div>
@@ -622,10 +624,10 @@
         while($row = $result->fetch_assoc()){
             echo '<div class="hot-item">
                         <div class="hot-item-inner wow fadeInLeft" data-wow-duration="2s" data-wow-delay="1s">
-                            <a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="'.$row['NCC'].'" alt=""></a>
+                            <a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="./Cpanel/images/product/'.$row['NCC'].'" alt=""></a>
                             <span id="giamgia"> -'.ceil(($row['DVT']-$row['DonGia'])/($row['DVT'])*100).'%</span>
                             <div class="product-info">
-                                <h4><a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'">'.$row['tensp'].'</a></h4>
+                                <h4 class="view-title"><a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'">'.$row['tensp'].'</a></h4>
                                 <span id="gia">'.number_format($row['DonGia']).' đ</span>
                                 <span id="giamgiaroi">'.number_format($row['DVT']).' đ</span>
                             </div>
@@ -644,10 +646,10 @@
             while($row = $result->fetch_assoc()){
                     echo '<div class="hot-item-right">
                             <div class="hot-item-inner-right">
-                                <a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="'.$row['NCC'].'" alt=""></a>';
+                                <a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="./Cpanel/images/product/'.$row['NCC'].'" alt=""></a>';
                     echo        '<span id="giagiam-right">-'.ceil(($row['DVT']-$row['DonGia'])/($row['DVT'])*100).'%</span>';
                     echo        '<div class="product-info-right">
-                                    <h4><a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'">iPhone Xs Max 64GB Like News</a></h4>
+                                    <h4 class="view-title"><a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'">'.$row['tensp'].'</a></h4>
                                     <span id="gia-right">'.number_format($row['DonGia']).' đ</span>
                                     <span id="giamgiaroi-right">'.number_format($row['DVT']).' đ</span>
                                 </div>

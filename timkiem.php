@@ -152,7 +152,7 @@
                         while ($row=$run_timkiem->fetch_assoc()) {
                             echo '<div class="hot-item">';
                             echo    '<div class="hot-item-inner">';
-                            echo        '<a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="'.$row['NCC'].'" alt=""></a>';
+                            echo        '<a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'"><img src="./Cpanel/images/product/'.$row['NCC'].'" alt=""></a>';
                             echo        '<span id="hangnew">News</span>';
                             echo        '<div class="product-info">';
                             echo            '<h4><a href="./product.php?masp='.$row['masp'].'&iddm='.$row['iddm'].'">'.$row['tensp'].'</a></h4>';
